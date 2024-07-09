@@ -1,3 +1,5 @@
+package com.poo.clinicaveterinaria;
+
 public class Pet {
     private static int ultimaId = 0;
     private int id;

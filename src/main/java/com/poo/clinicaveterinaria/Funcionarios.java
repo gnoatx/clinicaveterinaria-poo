@@ -1,4 +1,4 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public abstract class Funcionarios extends Pessoa {
     private static int ultimaId = 0;

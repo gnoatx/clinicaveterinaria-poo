@@ -1,5 +1,7 @@
+package com.poo.clinicaveterinaria;
+
 public class ExameDeEmergencia {
-private int idExameEmergencia;
+    private int idExameEmergencia;
 
 
 }

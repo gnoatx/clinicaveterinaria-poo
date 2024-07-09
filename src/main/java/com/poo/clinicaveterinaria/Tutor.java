@@ -1,4 +1,4 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public class Tutor extends Pessoa {
     private int id;

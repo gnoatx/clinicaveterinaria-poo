@@ -1,4 +1,4 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public class Animal {
     private static int ultimaId = 0;

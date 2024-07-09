@@ -1,4 +1,4 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public abstract class Pessoa {
     private static int ultimaId = 0;

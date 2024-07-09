@@ -1,4 +1,4 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public class Medico extends Funcionarios {
     private int id;

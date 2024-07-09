@@ -1,6 +1,6 @@
-package com.projeto.veterinaria;
-java.util.Arraylist
-java.util.Scanner
+package com.poo.clinicaveterinaria;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Atendente extends Funcionarios {
     private int ultimaId;
