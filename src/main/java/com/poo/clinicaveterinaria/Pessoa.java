@@ -1,11 +1,11 @@
-package com.projeto.veterinaria;
+package com.poo.clinicaveterinaria;
 
 public abstract class Pessoa {
     private static int ultimaId = 0;
     private int id;
-    private String nome;
-    private String telefone;
-    private String cpf;
+    protected String nome;
+    protected String telefone;
+    protected String cpf;
     private String login;
     private String senha;
 

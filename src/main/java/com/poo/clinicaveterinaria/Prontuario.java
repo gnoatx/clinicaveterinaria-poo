@@ -1,3 +1,69 @@
-public class Prontuario {
+package com.poo.clinicaveterinaria;
+import java.util.List;
+import java.util.ArrayList;
 
+
+public class Prontuario {
+    private static int ultimaId = 0;
+    private int id;
+    private Animal animal;
+    private List<String> historicoConsultas;
+    private String observacoes;
+    
+ public Prontuario(Animal animal) {
+        this.id = ++ultimaId;
+        this.animal = animal;
+        this.historicoConsultas = new ArrayList<>();
+        this.observacoes = "";
+        
+    }
+   
+    public void adicionarConsulta(String consulta) {
+        historicoConsultas.add(consulta);
+    }
+
+    
+    public void adicionarObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+    public void exibirProntuario() {
+        System.out.println("ID do Prontuário: " + id);
+        System.out.println("Animal: " + animal.getNome() + " (" + animal.getEspecie() + ")");
+        System.out.println("Observações:");
+        System.out.println(observacoes);
+        System.out.println("Histórico de Consultas:");
+        for (String consulta : historicoConsultas) {
+            System.out.println("- " + consulta);
+        }
+    }
+    public int getId() {
+        return id;
+    }
+
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
+
+    public List<String> getHistoricoConsultas() {
+        return historicoConsultas;
+    }
+
+    public void setHistoricoConsultas(ArrayList<String> historicoConsultas) {
+        this.historicoConsultas = historicoConsultas;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
 }
+
+
