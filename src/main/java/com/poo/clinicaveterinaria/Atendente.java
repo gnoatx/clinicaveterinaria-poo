@@ -3,13 +3,13 @@ package com.poo.clinicaveterinaria;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Atendente extends Funcionarios {
+public class Atendente extends Funcionario {
     private static int ultimaId = 0;
     private int id;
     private String nome;
 
-    public Atendente(String nome, String telefone, String cpf) {
-        super(nome, telefone, cpf);
+    public Atendente(String nome, String telefone, String cpf, String login, String senha) {
+        super(nome, telefone, cpf, login, senha);
         this.id = ++ultimaId;
     }
 
@@ -85,5 +85,10 @@ public class Atendente extends Funcionarios {
                 break;
         }
         sc1.close();
+    }
+
+    @Override
+    public boolean autentica(String login, String senha) {
+        return this.getLogin().equals(login) && this.getSenha().equals(senha);
     }
 }

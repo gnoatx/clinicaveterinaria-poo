@@ -1,8 +1,9 @@
 package com.poo.clinicaveterinaria;
+
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Animal {
+public abstract class Animal {
     protected static int ultimaId = 0;
     protected int id;
     protected String nome;
@@ -10,7 +11,7 @@ public class Animal {
     protected double peso;
     protected LocalDate dataCadastro;
     protected String especie;
-     
+
     public Animal(String nome, String especie, int idade, double peso) {
         this.id = ++ultimaId;
         this.nome = nome;
@@ -19,11 +20,11 @@ public class Animal {
         this.peso = peso;
         this.dataCadastro = LocalDate.now();
     }
-    
+
     public int getUltimaId() {
         return ultimaId;
     }
-    
+
     public int getId() {
         return id;
     }

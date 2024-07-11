@@ -2,33 +2,43 @@ package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
 
-
 public class Exame {
     private static int ultimaId;
     private int id;
     private int exame;
-    private String resultadoExame ;
+    private String resultadoExame;
     private LocalDate data;
     private String animal;
     private String examerealizado;
+    // pontos de saude: são determinados a parir do estado de saude do animal definido pela clínica
+    private int pontosdesaude;
 
-
-    
-
-    public Exame() {
+    public Exame(String animal, String examerealizado, String resultadoExame, LocalDate data) {
         this.id = ++ultimaId;
+        this.animal = animal;
+        this.examerealizado = examerealizado;
+        this.resultadoExame = resultadoExame;
+        this.data = data;
     }
 
-    public void gerarLaudo(){
+    public void gerarLaudo() {
 
         System.out.println("----- Laudo Clínico -----");
         System.out.println("Data: " + data);
         System.out.println("Paciente: " + animal);
-        System.out.println("Exame realizado: "+ examerealizado);
+        System.out.println("Exame realizado: " + examerealizado);
         System.out.println("Resultado do exame: " + resultadoExame);
         System.out.println("-------------------------");
-    
+
     }
+    public int  getPontosdesaude() {
+        return pontosdesaude;
+    }
+
+    public void setPontosdesaude(){
+        this.pontosdesaude = pontosdesaude;
+    }
+
     public LocalDate getData() {
         return data;
     }
@@ -53,10 +63,10 @@ public class Exame {
         this.examerealizado = examerealizado;
     }
 
-    public String getResultadoExame(){
+    public String getResultadoExame() {
         return resultadoExame;
     }
-    
+
     public static int getUltimaId() {
         return ultimaId;
     }
@@ -81,6 +91,13 @@ public class Exame {
         this.exame = exame;
     }
 
-    
+    public void conduzirparaexame(){
+        if(pontosdesaude >= 6 ){
+            System.out.println("LEVE SEU PET PARA A FILA EMERGENCIAL");
+            
+        }else{System.out.println("LEVE SEU PET PARA A FILA DE EXAME DE ROTINA");}
+
+
+    }
 
 }

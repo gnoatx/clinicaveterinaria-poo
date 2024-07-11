@@ -1,34 +1,34 @@
 package com.poo.clinicaveterinaria;
+
 import java.util.List;
 import java.util.ArrayList;
-
 
 public class Prontuario {
     private static int ultimaId = 0;
     private int id;
-    private Animal animal;
+    private Pet pet;
     private List<String> historicoConsultas;
     private String observacoes;
-    
- public Prontuario(Animal animal) {
+
+    public Prontuario(Pet pet) {
         this.id = ++ultimaId;
-        this.animal = animal;
+        this.pet = pet;
         this.historicoConsultas = new ArrayList<>();
         this.observacoes = "";
-        
+
     }
-   
+
     public void adicionarConsulta(String consulta) {
         historicoConsultas.add(consulta);
     }
 
-    
     public void adicionarObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
+
     public void exibirProntuario() {
         System.out.println("ID do Prontuário: " + id);
-        System.out.println("Animal: " + animal.getNome() + " (" + animal.getEspecie() + ")");
+        System.out.println("Animal: " + pet.getNome() + " (" + pet.getEspecie() + ")");
         System.out.println("Observações:");
         System.out.println(observacoes);
         System.out.println("Histórico de Consultas:");
@@ -36,17 +36,17 @@ public class Prontuario {
             System.out.println("- " + consulta);
         }
     }
+
     public int getId() {
         return id;
     }
 
-
-    public Animal getAnimal() {
-        return animal;
+    public Pet getPet() {
+        return pet;
     }
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
     public List<String> getHistoricoConsultas() {
@@ -65,5 +65,3 @@ public class Prontuario {
         this.observacoes = observacoes;
     }
 }
-
-

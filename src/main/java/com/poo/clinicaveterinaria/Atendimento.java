@@ -1,19 +1,21 @@
 package com.poo.clinicaveterinaria;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Atendimento {
     private static int ultimaId = 0;
     private int id;
     private Pet pet;
     private Atendente atendente;
-    private LocalDateTime horario;
+    private LocalDateTime dataHora;
 
     public Atendimento(Pet pet, Atendente atendente) {
         this.id = ++ultimaId;
         this.pet = pet;
         this.atendente = atendente;
-        horario = LocalDateTime.now();
+        dataHora = LocalDateTime.now();
     }
 
     public int getId() {
@@ -36,16 +38,12 @@ public class Atendimento {
         return atendente;
     }
 
-    public void setHorario(LocalDateTime horario) {
-        this.horario = horario;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
-    public LocalDateTime getHorario() {
-        return horario;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
-    public void acessarpetsDisponiveis(){
-        System.out.println("ANIMAIS DISPONIVEIS \n");
-        
 
-    }
 }

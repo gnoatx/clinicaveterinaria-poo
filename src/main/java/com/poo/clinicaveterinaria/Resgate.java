@@ -1,42 +1,41 @@
 package com.poo.clinicaveterinaria;
-import java.util.ArrayList;
+
 import java.time.LocalDate;
 
 public class Resgate extends Animal {
-    private static int contador = 1;
-    private static ArrayList<Resgate> Resgates = new ArrayList<>();
+    private static int ultimaId = 0;
+    private int id;
     private String localDoResgate;
     private LocalDate dataResgate;
     private String descricao;
-    private int numeroDoResgate;
     private boolean adotado;
 
-
-
-    public Resgate(String nome, String especie, int idade, double peso, String localDoResgate, LocalDate dataResgate, String descricao, int numeroDoResgate) {
+    public Resgate(String nome, String especie, int idade, double peso, String localDoResgate, LocalDate dataResgate,
+            String descricao) {
         super(nome, especie, idade, peso);
         this.localDoResgate = localDoResgate;
         this.descricao = descricao;
         this.dataResgate = LocalDate.now();
-        this.numeroDoResgate = contador++;
-        Resgates.add(this);
+        this.id = ++ultimaId;
+        this.adotado = false;
+        Dados.Resgates.add(this);
     }
 
     public void exibirResgate() {
-        System.out.println("Número do resgate: " + this.numeroDoResgate);
+        System.out.println("Número do resgate: " + this.id);
         System.out.println("Nome do animal resgatado: " + this.nome);
-        System.out.println("Espécie do animal resgatado" + this.especie);
+        System.out.println("Espécie do animal resgatado: " + this.especie);
         System.out.println("Data do resgate: " + this.dataResgate);
         System.out.println("Local do resgate: " + this.localDoResgate);
         System.out.println("Descrição do resgate: " + this.descricao);
     }
 
-    public static int getContador() {
-        return contador;
+    public int getUltimaId() {
+        return ultimaId;
     }
 
-    public static void setContador(int contador) {
-        Resgate.contador = contador;
+    public int getId() {
+        return id;
     }
 
     public String getLocalDoResgate() {
@@ -63,11 +62,12 @@ public class Resgate extends Animal {
         this.descricao = descricao;
     }
 
-    public int getNumeroDoResgate() {
-        return numeroDoResgate;
+    public void setAdotado(boolean adotado) {
+        this.adotado = adotado;
     }
 
-    public void setNumeroDoResgate(int numeroDoResgate) {
-        this.numeroDoResgate = numeroDoResgate;
+    public boolean getAdotado() {
+        return adotado;
     }
+
 }
