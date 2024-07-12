@@ -13,4 +13,5 @@ public class Dados {
     public static ArrayList<Prontuario> Prontuarios = new ArrayList<>();
     public static ArrayList<Resgate> Resgates = new ArrayList<>();
     public static ArrayList<Tutor> Tutores = new ArrayList<>();
+    
 }

@@ -7,6 +7,7 @@ public class Atendente extends Funcionario {
     private static int ultimaId = 0;
     private int id;
     private String nome;
+    private Tutor tutorSelecionado; //Essa variável é só pra métodos
 
     public Atendente(String nome, String telefone, String cpf, String login, String senha) {
         super(nome, telefone, cpf, login, senha);
@@ -25,22 +26,14 @@ public class Atendente extends Funcionario {
         this.nome = nome;
     }
 
-    public void addRemovpet() {
+  /*   public void addRemovpet() {
         int opçao;
         System.out.println("oque deseja fazer? ");
         System.out.println("1- adicionar um pet \n 2- remover um pet\n");
         Scanner sc1 = new Scanner(System.in);
         opçao = sc1.nextInt();
-        ArrayList<String> animais = new ArrayList<String>();
-
-        switch (opçao) {
-            case 1:
-                String animaladd;
-
-                Scanner sc = new Scanner(System.in);
-                System.out.println("Qual animal deseja adicionar? ");
-                animaladd = sc.nextLine();
-                animais.add(animaladd);
+        
+Pets.add(animaladd);
                 break;
             case 2:
                 String animalremov;
@@ -85,6 +78,93 @@ public class Atendente extends Funcionario {
                 break;
         }
         sc1.close();
+    } */
+
+    public void selecionaTutor() {
+        tutorSelecionado = null;
+        String cpfDigitado;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite o CPF do tutor cadastrado: ");
+        cpfDigitado = sc.nextLine();
+
+        for (int i = 0; i < Dados.Tutores.size(); i++) {
+            if (cpfDigitado.equals(Dados.Tutores.get(i).getCpf())) {
+                tutorSelecionado = Dados.Tutores.get(i);
+            }
+        }
+
+        if (tutorSelecionado == null) {
+            System.out.println("Não foi encontrado um tutor com este CPF.");
+        } else {
+            System.out.println("O tutor " + tutorSelecionado.getNome() + " foi selecionado.");
+        }
+    }
+
+    public void adicionarPet() {
+        String nomeDigitado, especieDigitada, racaDigitada;
+        int idadeDigitada;
+        double pesoDigitado;
+        char confirma;
+        Scanner scString = new Scanner(System.in);
+        Scanner scInt = new Scanner(System.in);
+        Scanner scDouble = new Scanner(System.in);
+
+        System.out.println("Nome: ");
+        nomeDigitado = scString.nextLine();
+        System.out.println("Espécie: ");
+        especieDigitada = scString.nextLine();
+        System.out.println("Raça: ");
+        racaDigitada = scString.nextLine();
+        System.out.println("Idade: ");
+        idadeDigitada = scInt.nextInt();
+        System.out.println("Peso: ");
+        pesoDigitado = scDouble.nextDouble();
+
+        System.out.println("\nDeseja adicionar este pet a(o) tutor(a) " + tutorSelecionado.getNome() + "? (s/n)");
+        confirma = scString.nextLine().charAt(0);
+        if (confirma == 's' || confirma == 'S') {
+            Pet pet1 = new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado, tutorSelecionado);
+            System.out.println("Pet adicionado com sucesso.");
+        } else {
+            System.out.println("Cancelado.");
+        }
+    }
+
+    public void lancarAtendimento(Pet pet, Atendente atendente){
+        Atendimento atendimento = new Atendimento(pet, atendente);
+        Dados.Atendimentos.add(atendimento);
+        System.out.println("Atendimento lançado para o pet: " + pet.getNome());
+    }
+
+    public void addNaListaAdocao(){
+        Scanner scString = new Scanner(System.in);
+        Scanner scInt = new Scanner(System.in);
+        Scanner scDouble = new Scanner(System.in);
+
+        String nomeAnimal;
+        String especieAnimal;
+        String racaAnimal;
+        int idadeAnimal;
+        double pesoAnimal;
+        
+        System.out.println("----------------------------");
+        System.out.print("Digite o nome do animal: ");
+        nomeAnimal = scString.nextLine();
+        System.out.println("-----------------------------");
+        System.out.print("Digite a espécie do animal");
+        especieAnimal = scString.nextLine();
+        System.out.println("-----------------------------");
+        System.out.print("Digite a raça do animal: ");
+        racaAnimal = scString.nextLine();
+        System.out.println("-----------------------------");
+        System.out.print("Digite a idade do animal: ");
+        idadeAnimal = scInt.nextInt();
+        System.out.println("-----------------------------");
+        System.out.print("Digite o peso do animal: ");
+        pesoAnimal = scDouble.nextDouble();
+        System.out.println("-----------------------------");
+
     }
 
     @Override

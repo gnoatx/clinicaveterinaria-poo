@@ -11,11 +11,13 @@ public abstract class Animal {
     protected double peso;
     protected LocalDate dataCadastro;
     protected String especie;
+    protected String raca;
 
-    public Animal(String nome, String especie, int idade, double peso) {
+    public Animal(String nome, String especie, String raca, int idade, double peso) {
         this.id = ++ultimaId;
         this.nome = nome;
         this.especie = especie;
+        this.raca = raca;
         this.idade = idade;
         this.peso = peso;
         this.dataCadastro = LocalDate.now();
@@ -61,4 +63,11 @@ public abstract class Animal {
         return especie;
     }
 
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
 }

@@ -31,7 +31,7 @@ public class Tutor extends Pessoa {
         System.out.println("Consulta agendada com sucesso para o animal: " + animal);
     }
 
-    public static void verListaAdocoes() {
+    public void verListaAdocoes() {
         boolean encontrouPetsParaAdocao = false;
         System.out.println("----- Lista de Pets para Adoção -----");
         for(Resgate resgate : Dados.Resgates){

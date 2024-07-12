@@ -2,13 +2,17 @@ package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
 
-public class Adocao {
+public class Adocao{
     public static int ultimaId = 0;
     public int id;
     Resgate resgate;
     Tutor tutor;
     Animal animal;
     LocalDate dataDaAdocao;
+
+    //public Adocao(Animal animal){
+    //   this.animal = animal;
+    //}
 
     public static int getUltimaId() {
         return ultimaId;
@@ -57,5 +61,7 @@ public class Adocao {
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
+
+    
 
 }

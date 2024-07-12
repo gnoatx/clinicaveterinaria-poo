@@ -1,6 +1,8 @@
 package com.poo.clinicaveterinaria;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Medico extends Funcionario {
     private static int ultimaId = 0;
@@ -45,20 +47,52 @@ public class Medico extends Funcionario {
         this.crmv = crmv;
     }
 
-    public void lancarAtendimento(Pet pet, Atendente atendente){
-        Atendimento atendimento = new Atendimento(pet, atendente);
-        Dados.Atendimentos.add(atendimento);
-        System.out.println("Atendimento lançado para o pet: " + pet.getNome());
-    }
-
     public void lancarExame(){
+        Scanner sc = new Scanner(System.in);
+
+        //Listar pets para escolher qual pet terá exame lançado
+        System.out.println("Lista de Pets:");
+        for(Pet pet : Dados.Pets){
+            System.out.println(pet.getId() + ". " + pet.getNome() + " (" + pet.getEspecie() + ")");
+        }
+
+        //Escolher o pet pelo Id
+        System.out.println("Digite o Id do Pet para lançar o exame: ");
+        int petId = sc.nextInt();
+        sc.nextLine();
+
+        //Encontra o pet pelo Id
+        Pet petSelecionado = null;
+        for(Pet pet : Dados.Pets){
+            if(pet.getId() == petId){
+                petSelecionado = pet;
+                break;
+            }
+        }
+
+        if(petSelecionado == null){
+            System.out.println("Pet não encontrado com o Id fornecido.");
+            sc.close(); //Fechar o scanner antes de retornar
+            return;
+        }
+
+        //Preencher informações do exame
+        System.out.println("Tipo de exame: ");
+        String tipoExame = sc.nextLine();
+
+        System.out.println("Resultado do exame: ");
+        String resultadoExame = sc.nextLine();
+
+        //Criar o objeto exame
+        Exame exame = new Exame(petSelecionado.getNome(), tipoExame, resultadoExame, LocalDate.now());
+        Dados.Exames.add(exame);
+    }
+    public void lancarReceita(String medicamento){
+        System.out.println("paciente: "+ this.nome + " medicamento para tomar: "+ medicamento);
     }
     
     @Override
     public boolean autentica(String login, String senha) {
         return this.getLogin().equals(loginDigitado) && this.getSenha().equals(senhaDigitada);
-    }
-    public void lancareceita(){
-        System.out.println("paciente: "+ this.nome + " medicamento para tomar: "+ medicamento);
     }
 }

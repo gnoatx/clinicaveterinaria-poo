@@ -4,12 +4,15 @@ public class Pet extends Animal {
     private static int ultimaId = 0;
     private int id;
     protected Tutor tutor;
+    
  
 
-    public Pet(String nome, String especie, int idade, double peso, Tutor tutor) {
-        super(nome, especie, idade, peso);
+    public Pet(String nome, String especie, String raca, int idade, double peso, Tutor tutor) {
+        super(nome, especie, raca, idade, peso);
         this.id = ++ultimaId;
         this.tutor = tutor;
+        
+        
     }
 
     public int getId() {
@@ -24,5 +27,4 @@ public class Pet extends Animal {
         return tutor;
         
     }
-
-    }
+}

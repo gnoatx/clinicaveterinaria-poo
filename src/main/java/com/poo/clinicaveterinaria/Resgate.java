@@ -10,9 +10,9 @@ public class Resgate extends Animal {
     private String descricao;
     private boolean adotado;
 
-    public Resgate(String nome, String especie, int idade, double peso, String localDoResgate, LocalDate dataResgate,
+    public Resgate(String nome, String especie, String raca, int idade, double peso, String localDoResgate, LocalDate dataResgate,
             String descricao) {
-        super(nome, especie, idade, peso);
+        super(nome, especie, raca, idade, peso);
         this.localDoResgate = localDoResgate;
         this.descricao = descricao;
         this.dataResgate = LocalDate.now();
