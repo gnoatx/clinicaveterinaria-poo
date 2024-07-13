@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+@SuppressWarnings("resource")
 public class Medico extends Funcionario {
     private static int ultimaId = 0;
     protected String nome;
@@ -113,10 +114,14 @@ public class Medico extends Funcionario {
                 break;
             }
         }
+        if (petSelecionado == null) {
+            System.out.println("Não existe um pet com este ID.");
+            return;
+        }
+
         System.out.print("Medicamentos: ");
         String medicamento = scString.nextLine();
         System.out.println("--------------");
-        Scanner sc2 = new Scanner(System.in);
         System.out.print("Observações: ");
         String observacoes = scString.nextLine();
 

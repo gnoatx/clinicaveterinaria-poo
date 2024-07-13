@@ -1,7 +1,6 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Exame {
     private static int ultimaId;
@@ -37,7 +36,7 @@ public class Exame {
         return pontosdesaude;
     }
 
-    public void setPontosdesaude(){
+    public void setPontosdesaude(int pontosdesaude){
         this.pontosdesaude = pontosdesaude;
     }
 

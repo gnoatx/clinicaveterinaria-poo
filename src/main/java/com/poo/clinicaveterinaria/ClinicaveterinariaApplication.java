@@ -2,11 +2,11 @@ package com.poo.clinicaveterinaria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+@SuppressWarnings("resource")
 @SpringBootApplication
 public class ClinicaveterinariaApplication {
 

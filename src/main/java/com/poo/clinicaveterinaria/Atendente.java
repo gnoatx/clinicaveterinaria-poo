@@ -1,11 +1,9 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.springframework.cglib.core.Local;
-
+@SuppressWarnings("resource")
 public class Atendente extends Funcionario {
     private static int ultimaId = 0;
     private int id;
