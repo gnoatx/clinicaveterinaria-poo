@@ -1,17 +1,21 @@
 package com.poo.clinicaveterinaria;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.springframework.cglib.core.Local;
 
 public class Atendente extends Funcionario {
     private static int ultimaId = 0;
     private int id;
     private String nome;
-    private Tutor tutorSelecionado; //Essa variável é só pra métodos
+    static int pontosdesaude;
 
     public Atendente(String nome, String telefone, String cpf, String login, String senha) {
         super(nome, telefone, cpf, login, senha);
         this.id = ++ultimaId;
+        Dados.Atendentes.add(this);
     }
 
     public int getId() {
@@ -26,29 +30,7 @@ public class Atendente extends Funcionario {
         this.nome = nome;
     }
 
-  /*   public void addRemovpet() {
-        int opçao;
-        System.out.println("oque deseja fazer? ");
-        System.out.println("1- adicionar um pet \n 2- remover um pet\n");
-        Scanner sc1 = new Scanner(System.in);
-        opçao = sc1.nextInt();
-        
-Pets.add(animaladd);
-                break;
-            case 2:
-                String animalremov;
-
-                Scanner sc2 = new Scanner(System.in);
-                System.out.println("Qual animal deseja remover? ");
-                animalremov = sc2.nextLine();
-                animais.remove(animalremov);
-                break;
-            default:
-                break;
-        }
-        sc1.close();
-    }
-
+    /*
     public void addRemovetutor() {
         int opçao;
         System.out.println("O que deseja fazer? ");
@@ -80,74 +62,33 @@ Pets.add(animaladd);
         sc1.close();
     } */
 
-    public void selecionaTutor() {
-        tutorSelecionado = null;
-        String cpfDigitado;
+    public Tutor selecionaTutor() {
+        Tutor tutorSelecionado = null;
+        int idDigitado;
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Digite o CPF do tutor cadastrado: ");
-        cpfDigitado = sc.nextLine();
+        while (tutorSelecionado == null) {
+            System.out.println("Selecione um tutor: ");
+            for (Tutor i : Dados.Tutores) {
+                System.out.println("ID: " + i.getId() + " / Nome: " + i.getNome() + " / Telefone: " + i.getTelefone() + " / CPF: " + i.getCpf());
+            }
 
-        for (int i = 0; i < Dados.Tutores.size(); i++) {
-            if (cpfDigitado.equals(Dados.Tutores.get(i).getCpf())) {
-                tutorSelecionado = Dados.Tutores.get(i);
+            System.out.print("Digite o ID do tutor cadastrado: ");
+            idDigitado = sc.nextInt();
+
+            for (Tutor i : Dados.Tutores) {
+                if (i.getId() == idDigitado) {
+                    tutorSelecionado = i;
+                }
+            }
+
+            if (tutorSelecionado == null) {
+                System.out.println("Não existe tutor com este ID.");
+            } else {
+                System.out.println("O tutor " + tutorSelecionado.getNome() + " foi selecionado.");
             }
         }
-
-        if (tutorSelecionado == null) {
-            System.out.println("Não foi encontrado um tutor com este CPF.");
-        } else {
-            System.out.println("O tutor " + tutorSelecionado.getNome() + " foi selecionado.");
-        }
-    }
-
-    public void listaPetsTutor() {
-        int contadorPets = 0;
-        System.out.println("Tutor selecionado: " + tutorSelecionado.getNome());
-        for (int i = 0; i < Dados.Pets.size(); i++) {
-            if (Dados.Pets.get(i).getTutor() == tutorSelecionado) {
-                System.out.println("ID: " + Dados.Pets.get(i).getId() + " / Nome: " + Dados.Pets.get(i).getNome() + " / Espécie: " + Dados.Pets.get(i).getEspecie() + " / Raça: " + Dados.Pets.get(i).getRaca() + " / Idade: " + Dados.Pets.get(i).getIdade() + " / Peso: " + Dados.Pets.get(i).getPeso());
-                contadorPets++;
-            }
-        }
-        if (contadorPets == 0) {
-            System.out.println("Este tutor não tem nenhum pet cadastrado.");
-        }
-    }
-
-    public void adicionarPet() {
-        String nomeDigitado, especieDigitada, racaDigitada;
-        int idadeDigitada;
-        double pesoDigitado;
-        char confirma;
-        Scanner scString = new Scanner(System.in);
-        Scanner scInt = new Scanner(System.in);
-        Scanner scDouble = new Scanner(System.in);
-
-        System.out.print("Nome: ");
-        nomeDigitado = scString.nextLine();
-        System.out.print("Espécie: ");
-        especieDigitada = scString.nextLine();
-        System.out.print("Raça: ");
-        racaDigitada = scString.nextLine();
-        System.out.print("Idade: ");
-        idadeDigitada = scInt.nextInt();
-        System.out.print("Peso: ");
-        pesoDigitado = scDouble.nextDouble();
-
-        System.out.println("\nDeseja adicionar este pet a(o) tutor(a) " + tutorSelecionado.getNome() + "? (s/n)");
-        confirma = scString.nextLine().charAt(0);
-        if (confirma == 's' || confirma == 'S') {
-            Pet pet = new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado, tutorSelecionado);
-            System.out.println("Pet adicionado com sucesso.");
-        } else {
-            System.out.println("Cancelado.");
-        }
-    }
-
-    public void removerPet() {
-        Scanner sc = new Scanner(System.in);
-
+        return tutorSelecionado;
     }
 
     public void lancarAtendimento(Pet pet, Atendente atendente){
@@ -162,6 +103,7 @@ Pets.add(animaladd);
         Scanner scDouble = new Scanner(System.in);
 
         String nomeAnimal;
+        LocalDate cadastroDataDaAdocao;
         String especieAnimal;
         String racaAnimal;
         int idadeAnimal;
@@ -171,6 +113,7 @@ Pets.add(animaladd);
         System.out.print("Digite o nome do animal: ");
         nomeAnimal = scString.nextLine();
         System.out.println("-----------------------------");
+        cadastroDataDaAdocao = LocalDate.now();
         System.out.print("Digite a espécie do animal");
         especieAnimal = scString.nextLine();
         System.out.println("-----------------------------");
@@ -183,8 +126,25 @@ Pets.add(animaladd);
         System.out.print("Digite o peso do animal: ");
         pesoAnimal = scDouble.nextDouble();
         System.out.println("-----------------------------");
+        //Adocao.setDataDaAdocao();
+        Adocao cadastroAdocao = new Adocao(cadastroDataDaAdocao, nomeAnimal, especieAnimal,racaAnimal, idadeAnimal, pesoAnimal);
+        System.out.println("Pet adicionado com sucesso.");
+        
 
     }
+    public static void conduzirparaexame(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println(" DE ACORDO COM A CLÍNICA, NUMA ESCALA DE 1 A 10 QUANTOS PONTOS DE SAÚDE O PET TEM");
+        pontosdesaude = sc.nextInt();
+        if(pontosdesaude <=4 ){
+            System.out.println("LEVE SEU PET PARA A FILA EMERGENCIAL");
+            
+        }else{System.out.println("LEVE SEU PET PARA A FILA EXAME DE ROTINA");}
+       
+        
+
+    }
+
 
     @Override
     public boolean autentica(String login, String senha) {

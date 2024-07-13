@@ -2,24 +2,22 @@ package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
 
-public class Adocao{
-    public static int ultimaId = 0;
-    public int id;
-    Resgate resgate;
-    Tutor tutor;
-    Animal animal;
-    LocalDate dataDaAdocao;
+public class Adocao extends Animal{
+    private static int ultimaId = 0;
+    private int id;
+    protected String tutor;
+    protected LocalDate dataDaAdocao;
 
-    //public Adocao(Animal animal){
-    //   this.animal = animal;
-    //}
-
-    public static int getUltimaId() {
-        return ultimaId;
-    }
-
-    public static void setUltimaId(int ultimaId) {
-        Adocao.ultimaId = ultimaId;
+    public Adocao(LocalDate dataDaAdocao, String nome, String especie, String raca, int idade, double peso){
+       super(nome, especie, raca, idade, peso);
+        this.id = ++ultimaId;
+        this.dataDaAdocao = LocalDate.now();
+        this.nome = nome;
+        this.especie = especie;
+        this.raca = raca;
+        this.peso = peso;
+        this.idade = idade;
+        Dados.Adocoes.add(this);
     }
 
     public int getId() {
@@ -30,38 +28,11 @@ public class Adocao{
         this.id = id;
     }
 
-    public Resgate getResgate() {
-        return resgate;
-    }
-
-    public void setResgate(Resgate resgate) {
-        this.resgate = resgate;
-    }
-
-    public Tutor getTutor() {
-        return tutor;
-    }
-
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
-    }
-
     public LocalDate getDataDaAdocao() {
         return dataDaAdocao;
     }
 
     public void setDataDaAdocao(LocalDate dataDaAdocao) {
-        this.dataDaAdocao = dataDaAdocao;
+        this.dataDaAdocao = LocalDate.now();
     }
-
-    public Animal getAnimal() {
-        return animal;
-    }
-
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
-    }
-
-    
-
 }

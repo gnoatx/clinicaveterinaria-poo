@@ -21,6 +21,7 @@ public class ClinicaveterinariaApplication {
 
 		Tutor victorGnoato = new Tutor("Victor Gnoato","(47) 97654-3198","125.226.584-19","vitin","8901");
 		
+        Pet billy = new Pet("Billy", "Cachorro", "Vira-lata", 7, 15, victorGnoato);
         /*Resgate jorgeResgate = new Resgate("Jorge", "Cachorro", 10, 30.00, "Paranaguaçu", LocalDate.of(2024,07,10), "Coitado");*/
 
         boolean sair = false;
@@ -37,16 +38,32 @@ public class ClinicaveterinariaApplication {
 
             switch (opcao) {
                 case 1:
-                    acessarComoMedico(lucasCarvalho);
+                    if (lucasCarvalho instanceof Medico ) {
+                        Medico lucasCarvalhoCast = (Medico) lucasCarvalho;
+                        acessarComoMedico(lucasCarvalhoCast);
+                    } else {
+                        System.out.println("Apenas Médicos podem acessar es");
+                    }
                     break;
 
                 case 2:
-                    acessarComoAtendente(joaoX);
+                    if(joaoX instanceof Atendente ){
+                        Atendente joaoXCast = (Atendente)joaoX;
+                        acessarComoAtendente(joaoXCast);
+                    }else{
+                        System.out.println("Apenas Atendentes podem acessar essa área");
+                        }
                     break;
 
                 case 3:
-                    acessarComoTutor(victorGnoato);
-                    break;
+                    if(victorGnoato instanceof Tutor ){
+                        Tutor victorGnoatoCast = (Tutor)victorGnoato;
+                        acessarComoTutor(victorGnoatoCast);                  
+                    }else{
+                        System.out.println("Apenas tutores podem acessar essa área");
+                        }
+                   break;
+                   
 
                 case 4:
                     sair = true;
@@ -57,7 +74,6 @@ public class ClinicaveterinariaApplication {
                     break;
             }
         }
-        sc.close(); 
     }
 
     private static void acessarComoMedico(Medico lucasCarvalho){
@@ -80,9 +96,10 @@ public class ClinicaveterinariaApplication {
                     break;
 
                 case 2:
-                    System.out.println("Digite o medicamento: ");
-                    String medicamento = sc.nextLine();
-                    lucasCarvalho.lancarReceita(medicamento);
+                    //System.out.println("Digite o medicamento: ");
+                    //String medicamento = sc.nextLine();
+                    lucasCarvalho.lancarReceita();
+
                     break;
 
                 case 3:
@@ -94,42 +111,53 @@ public class ClinicaveterinariaApplication {
                     break;
             }
         }
-        sc.close();
     }
 
     private static void acessarComoAtendente(Atendente joaoX){
         Scanner sc = new Scanner(System.in);
+        Tutor tutorSelecionado = null;
         boolean sair = false;
-
+        
         while (!sair) {
             System.out.println("\n----- Menu Atendente -----");
+            tutorSelecionado = joaoX.selecionaTutor();
+
             System.out.println("Escolha uma opção:");
             System.out.println("1. Adicionar Pet");
             System.out.println("2. Remover Pet");
-            System.out.println("3. Voltar");
+            System.out.println("3. Editar Pet");
+            System.out.println("4. Conduzir para fila");
+            System.out.println("5. Voltar");
 
             int opcao = sc.nextInt();
             sc.nextLine();
 
             switch (opcao) {
                 case 1:
-                    joaoX.adicionarPet();
+                    tutorSelecionado.adicionarPet();
                     break;
 
                 case 2:
-                    sair = true;
+                    tutorSelecionado.removerPet();
                     break;
 
-                /*case 2:
-                    joaoX.removerPet();
-                    break;*/
+                case 3:
+                    tutorSelecionado.editarPet();
+                    break;
+
+                case 4:
+                    Atendente.conduzirparaexame();
+                    break;
+
+                case 5:
+                    sair = true;
+                    break;
 
                 default:
                     System.out.println("Opção inválida. Escolha uma opção válida.");
                     break;
             }
         }
-        sc.close();
     }
 
     private static void acessarComoTutor(Tutor victorGnoato){
@@ -164,8 +192,8 @@ public class ClinicaveterinariaApplication {
                     String dataHoraStr = sc.nextLine();
                     LocalDateTime dataHora = LocalDateTime.parse(dataHoraStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
-                    System.out.println("Digite o nome do veterinário: ");
-                    String veterinario = sc.nextLine();
+                    //System.out.println("Digite o nome do veterinário: ");
+                    //String veterinario = sc.nextLine();            <== selecionar de Dados.Medicos por nome
 
                     System.out.println("Digite o nome do animal: ");
                     String animal = sc.nextLine();
@@ -176,7 +204,7 @@ public class ClinicaveterinariaApplication {
                     System.out.println("Observações: ");
                     String observacoes = sc.nextLine();
 
-                    victorGnoato.agendarConsulta(dataHora, veterinario, animal, motivo, observacoes);
+                    //victorGnoato.agendarConsulta(dataHora, medico, animal, motivo, observacoes);
                     break;
 
                 case 3:
@@ -192,7 +220,6 @@ public class ClinicaveterinariaApplication {
                     break;
             }
         }
-        sc.close();
     }
 
     private static Pet buscarPetPorNome(String nomePet){

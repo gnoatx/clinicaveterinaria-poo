@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Medico extends Funcionario {
     private static int ultimaId = 0;
+    protected String nome;
     private int id;
     private String especialidade;
     private String crmv;
@@ -17,6 +18,7 @@ public class Medico extends Funcionario {
         this.nome = nome;
         this.telefone = telefone;
         this.crmv = crmv;
+        Dados.Medicos.add(this);
     }
 
     public String getNome() {
@@ -47,50 +49,83 @@ public class Medico extends Funcionario {
         this.crmv = crmv;
     }
 
-    public void lancarExame(){
+    public void lancarExame() {
         Scanner sc = new Scanner(System.in);
 
-        //Listar pets para escolher qual pet terá exame lançado
+        // Listar pets para escolher qual pet terá exame lançado
         System.out.println("Lista de Pets:");
-        for(Pet pet : Dados.Pets){
+        for (Pet pet : Dados.Pets) {
             System.out.println(pet.getId() + ". " + pet.getNome() + " (" + pet.getEspecie() + ")");
         }
 
-        //Escolher o pet pelo Id
+        // Escolher o pet pelo Id
         System.out.println("Digite o Id do Pet para lançar o exame: ");
         int petId = sc.nextInt();
         sc.nextLine();
 
-        //Encontra o pet pelo Id
+        // Encontra o pet pelo Id
         Pet petSelecionado = null;
-        for(Pet pet : Dados.Pets){
-            if(pet.getId() == petId){
+        for (Pet pet : Dados.Pets) {
+            if (pet.getId() == petId) {
                 petSelecionado = pet;
                 break;
             }
         }
 
-        if(petSelecionado == null){
+        if (petSelecionado == null) {
             System.out.println("Pet não encontrado com o Id fornecido.");
-            sc.close(); //Fechar o scanner antes de retornar
+            sc.close(); // Fechar o scanner antes de retornar
             return;
         }
 
-        //Preencher informações do exame
+        // Preencher informações do exame
         System.out.println("Tipo de exame: ");
         String tipoExame = sc.nextLine();
 
         System.out.println("Resultado do exame: ");
         String resultadoExame = sc.nextLine();
 
-        //Criar o objeto exame
+        // Criar o objeto exame
         Exame exame = new Exame(petSelecionado.getNome(), tipoExame, resultadoExame, LocalDate.now());
         Dados.Exames.add(exame);
+        //Dados.Prontuarios.add(exame);
     }
-    public void lancarReceita(String medicamento){
-        System.out.println("paciente: "+ this.nome + " medicamento para tomar: "+ medicamento);
+
+    public void lancarReceita() {
+       Scanner scInt = new Scanner(System.in);
+       Scanner scString = new Scanner(System.in);
+       
+       String motivo = null;
+       
+       System.out.println("Lista de Pets:");
+       for (Pet pet : Dados.Pets) {
+           System.out.println(pet.getId() + ". " + pet.getNome() + " (" + pet.getEspecie() + ")");
+       }
+
+        // Escolher o pet pelo Id
+        System.out.println("Digite o Id do Pet para lançar a consulta: ");
+        int petId = scInt.nextInt();
+        // Encontra o pet pelo Id
+        Pet petSelecionado = null;
+        for (Pet pet : Dados.Pets) {
+            if (pet.getId() == petId) {
+                petSelecionado = pet;
+                break;
+            }
+        }
+        System.out.print("Medicamentos: ");
+        String medicamento = scString.nextLine();
+        System.out.println("--------------");
+        Scanner sc2 = new Scanner(System.in);
+        System.out.print("Observações: ");
+        String observacoes = scString.nextLine();
+
+        Consulta consulta = new Consulta(LocalDateTime.now(), this, petSelecionado.getNome(), motivo, observacoes);
+        Dados.Consultas.add(consulta);
+        System.out.println(consulta.toString() + "\nMedicamentos: " + medicamento);
     }
     
+
     @Override
     public boolean autentica(String login, String senha) {
         return this.getLogin().equals(loginDigitado) && this.getSenha().equals(senhaDigitada);

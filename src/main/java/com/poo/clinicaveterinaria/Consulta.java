@@ -3,28 +3,28 @@ package com.poo.clinicaveterinaria;
 import java.time.LocalDateTime;
 
 public class Consulta {
-    private String veterinario;
+    private Medico medico;
     private String animal;
     private String motivo;
-    private String observacoes;
+    protected String observacoes;
     private LocalDateTime dataHora;
 
-    public Consulta(LocalDateTime dataHora, String veterinario, String animal, String motivo, String observacoes) {
-        this.dataHora = dataHora;
-        this.veterinario = veterinario;
+    public Consulta(LocalDateTime dataHora, Medico medico, String animal, String motivo, String observacoes) {
+        this.dataHora = LocalDateTime.now();
+        this.medico = medico;
         this.animal = animal;
         this.motivo = motivo;
         this.observacoes = observacoes;
+        Dados.Consultas.add(this);
     }
-     @Override
+
     public String toString() {
-        return "Consulta{" +
-                "Data Hora=" + dataHora +
-                ", veterinario='" + veterinario + '\'' +
-                ", animal='" + animal + '\'' +
-                ", motivo='" + motivo + '\'' +
-                ", observacoes='" + observacoes + '\'' +
-                '}';
+        return "Consulta" +
+                "\nData Hora=" + dataHora +
+                "\n Medico='" + medico.getNome()+
+                "\n animal='" + animal+
+                "\n motivo='" + motivo +
+                "\n observacoes='" + observacoes;
     }
 
     public LocalDateTime getDataHora() {
@@ -35,12 +35,12 @@ public class Consulta {
         this.dataHora = dataHora;
     }
 
-    public String getVeterinario() {
-        return veterinario;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setVeterinario(String veterinario) {
-        this.veterinario = veterinario;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public String getAnimal() {

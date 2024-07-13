@@ -11,14 +11,17 @@ public class Pet extends Animal {
         super(nome, especie, raca, idade, peso);
         this.id = ++ultimaId;
         this.tutor = tutor;
-        
-        
+        Dados.Pets.add(this);
     }
 
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }

@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public abstract class Animal {
-    protected static int ultimaId = 0;
-    protected int id;
+    private int id;
+    private static int ultimaId = 0;
     protected String nome;
     protected int idade;
     protected double peso;
@@ -21,6 +21,7 @@ public abstract class Animal {
         this.idade = idade;
         this.peso = peso;
         this.dataCadastro = LocalDate.now();
+        Dados.Animais.add(this);
     }
 
     public int getUltimaId() {
@@ -41,6 +42,10 @@ public abstract class Animal {
 
     public int getIdade() {
         return idade + Period.between(dataCadastro, LocalDate.now()).getYears();
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
     public double getPeso() {

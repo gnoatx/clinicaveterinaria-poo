@@ -16,6 +16,7 @@ public class Atendimento {
         this.pet = pet;
         this.atendente = atendente;
         dataHora = LocalDateTime.now();
+        Dados.Atendimentos.add(this);
     }
 
     public int getId() {

@@ -1,6 +1,7 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Exame {
     private static int ultimaId;
@@ -19,6 +20,7 @@ public class Exame {
         this.examerealizado = examerealizado;
         this.resultadoExame = resultadoExame;
         this.data = data;
+        Dados.Exames.add(this);
     }
 
     public void gerarLaudo() {
@@ -91,13 +93,5 @@ public class Exame {
         this.exame = exame;
     }
 
-    public void conduzirparaexame(){
-        if(pontosdesaude >= 6 ){
-            System.out.println("LEVE SEU PET PARA A FILA EMERGENCIAL");
-            
-        }else{System.out.println("LEVE SEU PET PARA A FILA DE EXAME DE ROTINA");}
-
-
-    }
-
+    
 }

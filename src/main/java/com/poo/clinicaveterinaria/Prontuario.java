@@ -15,7 +15,7 @@ public class Prontuario {
         this.pet = pet;
         this.historicoConsultas = new ArrayList<>();
         this.observacoes = "";
-
+        Dados.Prontuarios.add(this);
     }
 
     public void adicionarConsulta(String consulta) {
