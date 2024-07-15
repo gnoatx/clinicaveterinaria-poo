@@ -1,46 +1,30 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class Consulta {
-    private static int ultimaId = 0;
-    private int id;    
     private Medico medico;
-    private String medicamento;
-    private Pet pet;
+    private String animal;
     private String motivo;
     protected String observacoes;
     private LocalDateTime dataHora;
-    private Tutor tutor;
 
-    public Consulta(LocalDateTime dataHora, Medico medico,Tutor tutor, Pet pet, String motivo, String observacoes) {
-        this.id = ++ultimaId;
-        this.dataHora = dataHora;
+    public Consulta(LocalDateTime dataHora, Medico medico, String animal, String motivo, String observacoes) {
+        this.dataHora = LocalDateTime.now();
         this.medico = medico;
-        this.pet = pet;
+        this.animal = animal;
         this.motivo = motivo;
         this.observacoes = observacoes;
         Dados.Consultas.add(this);
     }
 
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String agoraFormatado = dataHora.format(formatter);
         return "Consulta" +
-                "\n ⮞Data Hora: " + agoraFormatado +
-                "\n ⮞Medico: " + medico.getNome() +
-                "\n ⮞Pet: " + pet.getNome() + " ✔ | " + "Raça: " + pet.getRaca() + " ✔ | " + "Espécie: " + pet.getEspecie() +"✔ "+
-                "\n ⮞Motivo='" + motivo +
-                "\n ⮞Observacoes='" + observacoes;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+                "\nData Hora=" + dataHora +
+                "\n Medico='" + medico.getNome()+
+                "\n animal='" + animal+
+                "\n motivo='" + motivo +
+                "\n observacoes='" + observacoes;
     }
 
     public LocalDateTime getDataHora() {
@@ -59,20 +43,12 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public String getMedicamento() {
-        return medicamento;
+    public String getAnimal() {
+        return animal;
     }
 
-    public void setMedicamento(String medicamento) {
-        this.medicamento = medicamento;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setAnimal(String animal) {
+        this.animal = animal;
     }
 
     public String getMotivo() {
@@ -91,11 +67,4 @@ public class Consulta {
         this.observacoes = observacoes;
     }
 
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
-    }
-
-    public Tutor getTutor() {
-        return tutor;
-    }
 }

@@ -8,12 +8,10 @@ import java.util.Scanner;
 public class Tutor extends Pessoa {
     private static int ultimaId = 0;
     private int id;
-    private Pet pet;
 
-    public Tutor(String nome, String telefone, String cpf, String login, String senha, Pet pet) {
+    public Tutor(String nome, String telefone, String cpf, String login, String senha) {
         super(nome, telefone, cpf, login, senha);
         this.id = ++ultimaId;
-        this.pet = pet;
         Dados.Tutores.add(this);
     }
 
@@ -21,29 +19,21 @@ public class Tutor extends Pessoa {
         return id;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
     public void verProntuario(Pet pet) {
         List<Prontuario> prontuarios = Dados.Prontuarios;
         System.out.println("----- Prontuários dos Pets -----");
-        // for (Prontuario prontuario : prontuarios) {
-        //     if (prontuario.getPet().equals(pet) && prontuario.getPet().getTutor().equals(this)) {
-                // prontuario.exibirProntuario();
-            //     return;
-            // }
-        //}
+        for (Prontuario prontuario : prontuarios) {
+            if (prontuario.getPet().equals(pet) && prontuario.getPet().getTutor().equals(this)) {
+                System.out.println(prontuario.exibirProntuario());
+                return;
+            }
+        }
         
         System.out.println("Prontuário não encontrado para o pet " + pet.getNome());
     }
 
-    public void agendarConsulta(LocalDateTime dataHora, Medico medico, String nome, String animal, String motivo, String observacoes) {
-        Consulta consulta = new Consulta (dataHora, medico, this, pet, motivo, observacoes);
+    public void agendarConsulta(LocalDateTime dataHora, Medico medico, String animal, String motivo, String observacoes) {
+        Consulta consulta = new Consulta (dataHora, medico, animal, motivo, observacoes);
         Dados.Consultas.add(consulta);
         System.out.println("Consulta agendada com sucesso para o animal: " + animal);
     }
@@ -99,7 +89,7 @@ public class Tutor extends Pessoa {
         System.out.println("\nDeseja adicionar este pet a(o) tutor(a) " + this.getNome() + "? (s/n)");
         confirma = scString.nextLine().charAt(0);
         if (confirma == 's' || confirma == 'S') {
-            Pet pet = new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado);
+            new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado, this);
             System.out.println("Pet adicionado com sucesso.");
         } else {
             System.out.println("Cancelado.");
@@ -123,15 +113,16 @@ public class Tutor extends Pessoa {
         }
         if (petSelecionado == null) {
             System.out.println("Não existe pet com esta ID.");
+            return;
+        }
+
+        System.out.println("Deseja remover o pet " + petSelecionado.getNome() + " do tutor " + this.getNome() + "? (s/n)");
+        confirma = scString.nextLine().charAt(0);
+        if (confirma == 's' || confirma == 'S') {
+            Dados.Pets.remove(petSelecionado);
+            System.out.println("Pet removido com sucesso.");
         } else {
-            System.out.println("Deseja remover o pet " + petSelecionado.getNome() + " do tutor " + this.getNome() + "? (s/n)");
-            confirma = scString.nextLine().charAt(0);
-            if (confirma == 's' || confirma == 'S') {
-                Dados.Pets.remove(petSelecionado);
-                System.out.println("Pet removido com sucesso.");
-            } else {
-                System.out.println("Cancelado.");
-            }
+            System.out.println("Cancelado.");
         }
     }
 
@@ -155,80 +146,80 @@ public class Tutor extends Pessoa {
         }
         if (petSelecionado == null) {
             System.out.println("Não existe pet com esta ID.");
-        } else {
-            System.out.println("\n1. Nome: " + petSelecionado.getNome());
-            System.out.println("2. Espécie: " + petSelecionado.getEspecie());
-            System.out.println("3. Raça: " + petSelecionado.getRaca());
-            System.out.println("4. Idade: " + petSelecionado.getIdade());
-            System.out.println("5. Peso: " + petSelecionado.getPeso());
-            System.out.print("\nDigite a opção que deseja editar: ");
-            opcao = scInt.nextInt();
+            return;
+        }
+        System.out.println("\n1. Nome: " + petSelecionado.getNome());
+        System.out.println("2. Espécie: " + petSelecionado.getEspecie());
+        System.out.println("3. Raça: " + petSelecionado.getRaca());
+        System.out.println("4. Idade: " + petSelecionado.getIdade());
+        System.out.println("5. Peso: " + petSelecionado.getPeso());
+        System.out.print("\nDigite a opção que deseja editar: ");
+        opcao = scInt.nextInt();
 
-            switch (opcao) {
-                case 1:
-                    System.out.print("Digite o novo nome: ");
-                    nomeDigitado = scString.nextLine();
-                    System.out.println(petSelecionado.getNome() + " ==> " + nomeDigitado + "? (s/n)");
-                    confirma = scString.nextLine().charAt(0);
-                    if (confirma == 's' || confirma == 'S') {
-                        petSelecionado.setNome(nomeDigitado);
-                        System.out.println("Alteração feita com sucesso.");
-                    } else {
-                        System.out.println("Cancelado.");
-                    }
-                    break;
-                case 2:
-                    System.out.print("Digite a nova espécie: ");
-                    especieDigitada = scString.nextLine();
-                    System.out.println(petSelecionado.getEspecie() + " ==> " + especieDigitada + "? (s/n)");
-                    confirma = scString.nextLine().charAt(0);
-                    if (confirma == 's' || confirma == 'S') {
-                        petSelecionado.setEspecie(especieDigitada);
-                        System.out.println("Alteração feita com sucesso.");
-                    } else {
-                        System.out.println("Cancelado.");
-                    }
-                    break;
-                case 3:
-                    System.out.print("Digite a nova raça: ");
-                    racaDigitada = scString.nextLine();
-                    System.out.println(petSelecionado.getRaca() + " ==> " + racaDigitada + "? (s/n)");
-                    confirma = scString.nextLine().charAt(0);
-                    if (confirma == 's' || confirma == 'S') {
-                        petSelecionado.setRaca(racaDigitada);
-                        System.out.println("Alteração feita com sucesso.");
-                    } else {
-                        System.out.println("Cancelado.");
-                    }
-                    break;
-                case 4:
-                    System.out.print("Digite a nova idade: ");
-                    idadeDigitada = scInt.nextInt();
-                    System.out.println(petSelecionado.getIdade() + " ==> " + idadeDigitada + "? (s/n)");
-                    confirma = scString.nextLine().charAt(0);
-                    if (confirma == 's' || confirma == 'S') {
-                        petSelecionado.setIdade(idadeDigitada);
-                        System.out.println("Alteração feita com sucesso.");
-                    } else {
-                        System.out.println("Cancelado.");
-                    }
-                    break;
-                case 5:
-                    System.out.print("Digite o novo peso: ");
-                    pesoDigitado = scDouble.nextDouble();
-                    System.out.println(petSelecionado.getPeso() + " ==> " + pesoDigitado + "? (s/n)");
-                    confirma = scString.nextLine().charAt(0);
-                    if (confirma == 's' || confirma == 'S') {
-                        petSelecionado.setPeso(pesoDigitado);
-                        System.out.println("Alteração feita com sucesso.");
-                    } else {
-                        System.out.println("Cancelado.");
-                    }
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
-                    break;
-            }
+        switch (opcao) {
+            case 1:
+                System.out.print("Digite o novo nome: ");
+                nomeDigitado = scString.nextLine();
+                System.out.println(petSelecionado.getNome() + " ==> " + nomeDigitado + "? (s/n)");
+                confirma = scString.nextLine().charAt(0);
+                if (confirma == 's' || confirma == 'S') {
+                    petSelecionado.setNome(nomeDigitado);
+                    System.out.println("Alteração feita com sucesso.");
+                } else {
+                    System.out.println("Cancelado.");
+                }
+                break;
+            case 2:
+                System.out.print("Digite a nova espécie: ");
+                especieDigitada = scString.nextLine();
+                System.out.println(petSelecionado.getEspecie() + " ==> " + especieDigitada + "? (s/n)");
+                confirma = scString.nextLine().charAt(0);
+                if (confirma == 's' || confirma == 'S') {
+                    petSelecionado.setEspecie(especieDigitada);
+                    System.out.println("Alteração feita com sucesso.");
+                } else {
+                    System.out.println("Cancelado.");
+                }
+                break;
+            case 3:
+                System.out.print("Digite a nova raça: ");
+                racaDigitada = scString.nextLine();
+                System.out.println(petSelecionado.getRaca() + " ==> " + racaDigitada + "? (s/n)");
+                confirma = scString.nextLine().charAt(0);
+                if (confirma == 's' || confirma == 'S') {
+                    petSelecionado.setRaca(racaDigitada);
+                    System.out.println("Alteração feita com sucesso.");
+                } else {
+                    System.out.println("Cancelado.");
+                }
+                break;
+            case 4:
+                System.out.print("Digite a nova idade: ");
+                idadeDigitada = scInt.nextInt();
+                System.out.println(petSelecionado.getIdade() + " ==> " + idadeDigitada + "? (s/n)");
+                confirma = scString.nextLine().charAt(0);
+                if (confirma == 's' || confirma == 'S') {
+                    petSelecionado.setIdade(idadeDigitada);
+                    System.out.println("Alteração feita com sucesso.");
+                } else {
+                    System.out.println("Cancelado.");
+                }
+                break;
+            case 5:
+                System.out.print("Digite o novo peso: ");
+                pesoDigitado = scDouble.nextDouble();
+                System.out.println(petSelecionado.getPeso() + " ==> " + pesoDigitado + "? (s/n)");
+                confirma = scString.nextLine().charAt(0);
+                if (confirma == 's' || confirma == 'S') {
+                    petSelecionado.setPeso(pesoDigitado);
+                    System.out.println("Alteração feita com sucesso.");
+                } else {
+                    System.out.println("Cancelado.");
+                }
+                break;
+            default:
+                System.out.println("Opção inválida.");
+                break;
         }
     }
 

@@ -1,7 +1,6 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Exame {
     private static int ultimaId;
@@ -11,9 +10,7 @@ public class Exame {
     private LocalDate data;
     private String animal;
     private String examerealizado;
-    // pontos de saude: são determinados a parir do estado de saude do animal definido pela clínica
-    private int pontosdesaude;
-
+    
     public Exame(String animal, String examerealizado, String resultadoExame, LocalDate data) {
         this.id = ++ultimaId;
         this.animal = animal;
@@ -33,14 +30,7 @@ public class Exame {
         System.out.println("-------------------------");
 
     }
-    public int  getPontosdesaude() {
-        return pontosdesaude;
-    }
-
-    public void setPontosdesaude(){
-        this.pontosdesaude = pontosdesaude;
-    }
-
+    
     public LocalDate getData() {
         return data;
     }

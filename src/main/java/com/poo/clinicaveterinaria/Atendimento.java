@@ -1,8 +1,6 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Atendimento {
     private static int ultimaId = 0;

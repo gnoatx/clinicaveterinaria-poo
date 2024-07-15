@@ -23,7 +23,7 @@ public class Prontuario {
         this.tutor = tutor;
         this.medicamento = medicamento;
         this.observacoes = observacoes;
-
+        this.id = ++ultimaId;
     }
 
     public void adicionarConsulta(String consulta) {
@@ -40,13 +40,10 @@ public class Prontuario {
                 "\nMédico: " + medico.getNome() + " (CRMV - " + medico.getCrmv() + ")" +
                 "\nTutor: " + tutor.getNome() +
                 "\nNome do pet: " + pet.getNome() + " (" + pet.getEspecie() + ")" +
-                "\nRaça" + pet.getRaca() +
+                "\nRaça: " + pet.getRaca() +
                 "\nIdade: " + pet.getIdade() + "  |  " + "Peso: " + pet.getPeso() +
                 "\nObservações: " + observacoes +
                 "\nMedicamentos: " + medicamento;
-
-        // for (String consulta : historicoConsultas) {
-        // ("- " + consulta);
     }
 
     public int getId() {

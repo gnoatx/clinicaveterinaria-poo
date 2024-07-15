@@ -1,11 +1,9 @@
 package com.poo.clinicaveterinaria;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.springframework.cglib.core.Local;
-
+@SuppressWarnings("resource")
 public class Atendente extends Funcionario {
     private static int ultimaId = 0;
     private int id;
@@ -17,7 +15,8 @@ public class Atendente extends Funcionario {
         this.id = ++ultimaId;
         Dados.Atendentes.add(this);
     }
-
+  
+    
     public int getId() {
         return id;
     }
@@ -126,7 +125,6 @@ public class Atendente extends Funcionario {
         System.out.print("Digite o peso do animal: ");
         pesoAnimal = scDouble.nextDouble();
         System.out.println("-----------------------------");
-        //Adocao.setDataDaAdocao();
         Adocao cadastroAdocao = new Adocao(cadastroDataDaAdocao, nomeAnimal, especieAnimal,racaAnimal, idadeAnimal, pesoAnimal);
         System.out.println("Pet adicionado com sucesso.");
         
