@@ -7,10 +7,9 @@ public class Pet extends Animal {
     
  
 
-    public Pet(String nome, String especie, String raca, int idade, double peso, Tutor tutor) {
+    public Pet(String nome, String especie, String raca, int idade, double peso) {
         super(nome, especie, raca, idade, peso);
         this.id = ++ultimaId;
-        this.tutor = tutor;
         Dados.Pets.add(this);
     }
 
@@ -22,12 +21,12 @@ public class Pet extends Animal {
         this.id = id;
     }
     
+    public Tutor getTutor() {
+        return tutor;
+    }
+
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }
 
-    public Tutor getTutor() {
-        return tutor;
-        
-    }
 }

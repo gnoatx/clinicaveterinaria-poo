@@ -18,10 +18,11 @@ public class ClinicaveterinariaApplication {
 		Atendente joaoX = new Atendente("João X", "(24) 98543-5122", "136.252.411-02","Joaox", "24321");
 
 		Medico lucasCarvalho = new Medico("Lucas Carvalho", "(24) 93157-7625", "105.963.402-16", "02716", "lulu","2216");
-
-		Tutor victorGnoato = new Tutor("Victor Gnoato","(47) 97654-3198","125.226.584-19","vitin","8901");
+        
+        Pet billy = new Pet("Billy", "Cachorro", "Vira-lata", 7, 15);
 		
-        Pet billy = new Pet("Billy", "Cachorro", "Vira-lata", 7, 15, victorGnoato);
+        Tutor victorGnoato = new Tutor("Victor Gnoato","(47) 97654-3198","125.226.584-19","vitin","8901", billy);
+		
         /*Resgate jorgeResgate = new Resgate("Jorge", "Cachorro", 10, 30.00, "Paranaguaçu", LocalDate.of(2024,07,10), "Coitado");*/
 
         boolean sair = false;
@@ -42,7 +43,7 @@ public class ClinicaveterinariaApplication {
                         Medico lucasCarvalhoCast = (Medico) lucasCarvalho;
                         acessarComoMedico(lucasCarvalhoCast);
                     } else {
-                        System.out.println("Apenas Médicos podem acessar es");
+                        System.out.println("Apenas Médicos podem acessar essa área");
                     }
                     break;
 
@@ -84,7 +85,7 @@ public class ClinicaveterinariaApplication {
             System.out.println("\n----- Menu Medico -----");
             System.out.println("Escolha uma opção:");
             System.out.println("1. Lançar Exame");
-            System.out.println("2. Lançar Receita");
+            System.out.println("2. Lançar Prontuário");
             System.out.println("3. Voltar");
 
             int opcao = sc.nextInt();
@@ -98,7 +99,7 @@ public class ClinicaveterinariaApplication {
                 case 2:
                     //System.out.println("Digite o medicamento: ");
                     //String medicamento = sc.nextLine();
-                    lucasCarvalho.lancarReceita();
+                    lucasCarvalho.lancarProntuario();
 
                     break;
 
@@ -177,26 +178,30 @@ public class ClinicaveterinariaApplication {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Digite o nome do pet: ");
-                    String nomePet = sc.nextLine();
-                    Pet pet = buscarPetPorNome(nomePet);
-                    if(pet != null){
-                        victorGnoato.verProntuario(pet);
-                    } else {
-                        System.out.println("Pet não encontrado");
-                    }
+                    // System.out.println("Digite o nome do pet: ");
+                    // String nomePet = sc.nextLine();
+                    // Pet pet = buscarPetPorNome(nomePet);
+                    // if(pet != null){
+                        victorGnoato.verProntuario(victorGnoato.getPet());
+                    // } else {
+                    //     System.out.println("Pet não encontrado");
+                    // }
                     break;
                     
                 case 2:
-                    System.out.println("Digite a data e hora da consulta (yyyy-MM-dd HH:mm): ");
+
+                    System.out.println("Digite a data e hora da consulta (dd-MM-yyyy HH:mm): ");
                     String dataHoraStr = sc.nextLine();
-                    LocalDateTime dataHora = LocalDateTime.parse(dataHoraStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                    LocalDateTime dataHora = LocalDateTime.parse(dataHoraStr, DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 
                     //System.out.println("Digite o nome do veterinário: ");
                     //String veterinario = sc.nextLine();            <== selecionar de Dados.Medicos por nome
 
-                    System.out.println("Digite o nome do animal: ");
-                    String animal = sc.nextLine();
+                    //System.out.println("Digite o nome do pet: ");
+                    //String animal = sc.nextLine();
+                    
+
+                    System.out.println();
 
                     System.out.println("Digite o motivo da consulta: ");
                     String motivo = sc.nextLine();
@@ -204,7 +209,7 @@ public class ClinicaveterinariaApplication {
                     System.out.println("Observações: ");
                     String observacoes = sc.nextLine();
 
-                    //victorGnoato.agendarConsulta(dataHora, medico, animal, motivo, observacoes);
+                    //victorGnoato.agendarConsulta(dataHora, medico, tutor, pet, motivo, observacoes);
                     break;
 
                 case 3:

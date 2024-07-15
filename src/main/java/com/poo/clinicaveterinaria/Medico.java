@@ -10,7 +10,9 @@ public class Medico extends Funcionario {
     private int id;
     private String especialidade;
     private String crmv;
-    String medicamento;
+    private String medicamento;
+    private Pet pet;
+    private Tutor tutor;
 
     public Medico(String nome, String telefone, String cpf, String crmv, String login, String senha) {
         super(nome, telefone, cpf, login, senha);
@@ -47,6 +49,30 @@ public class Medico extends Funcionario {
 
     public void setCrmv(String crmv) {
         this.crmv = crmv;
+    }
+    
+    public String getMedicamento() {
+        return medicamento;
+    }
+
+    public void setMedicamento(String medicamento) {
+        this.medicamento = medicamento;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+    
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 
     public void lancarExame() {
@@ -91,19 +117,18 @@ public class Medico extends Funcionario {
         //Dados.Prontuarios.add(exame);
     }
 
-    public void lancarReceita() {
+    public void lancarProntuario() {
        Scanner scInt = new Scanner(System.in);
        Scanner scString = new Scanner(System.in);
+       //Animal animal;
        
-       String motivo = null;
-       
-       System.out.println("Lista de Pets:");
-       for (Pet pet : Dados.Pets) {
-           System.out.println(pet.getId() + ". " + pet.getNome() + " (" + pet.getEspecie() + ")");
+       System.out.println("Lista de Consultas:");
+       for (Consulta consulta : Dados.Consultas) {
+           System.out.println(consulta.getId() + ". " + consulta.getTutor().getCpf() + " (" + consulta.getPet().getNome() + ")");
        }
 
         // Escolher o pet pelo Id
-        System.out.println("Digite o Id do Pet para lançar a consulta: ");
+        System.out.println("Digite o Id do tutor para lançar o prontuário: ");
         int petId = scInt.nextInt();
         // Encontra o pet pelo Id
         Pet petSelecionado = null;
@@ -119,11 +144,16 @@ public class Medico extends Funcionario {
         Scanner sc2 = new Scanner(System.in);
         System.out.print("Observações: ");
         String observacoes = scString.nextLine();
+        System.out.println("--------------");
+        
+        Prontuario prontuario = new Prontuario(LocalDateTime.now(), this, tutor ,pet, medicamento, observacoes);
+        Dados.Prontuarios.add(prontuario);
+        System.out.println(prontuario.exibirProntuario());
 
-        Consulta consulta = new Consulta(LocalDateTime.now(), this, petSelecionado.getNome(), motivo, observacoes);
-        Dados.Consultas.add(consulta);
-        System.out.println(consulta.toString() + "\nMedicamentos: " + medicamento);
     }
+    
+    
+
     
 
     @Override

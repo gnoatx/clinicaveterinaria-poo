@@ -1,52 +1,56 @@
 package com.poo.clinicaveterinaria;
 
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Prontuario {
     private static int ultimaId = 0;
     private int id;
     private Pet pet;
+    private Tutor tutor;
+    private LocalDateTime dataHora;
+    private String medicamento;
+    private Medico medico;
     private List<String> historicoConsultas;
     private String observacoes;
 
-    public Prontuario(Pet pet) {
-        this.id = ++ultimaId;
+    public Prontuario(LocalDateTime dataHora, Medico medico, Tutor tutor, Pet pet, String medicamento, String observacoes) {
+        this.dataHora = LocalDateTime.now();
+        this.medico = medico;
         this.pet = pet;
-        this.historicoConsultas = new ArrayList<>();
-        this.observacoes = "";
-        Dados.Prontuarios.add(this);
+        this.tutor = tutor;
+        this.medicamento = medicamento;
+        this.observacoes = observacoes;
+
     }
 
     public void adicionarConsulta(String consulta) {
         historicoConsultas.add(consulta);
     }
 
-    public void adicionarObservacoes(String observacoes) {
-        this.observacoes = observacoes;
-    }
+    public String exibirProntuario() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String agoraFormatado = dataHora.format(formatter);
+        return
 
-    public void exibirProntuario() {
-        System.out.println("ID do Prontuário: " + id);
-        System.out.println("Animal: " + pet.getNome() + " (" + pet.getEspecie() + ")");
-        System.out.println("Observações:");
-        System.out.println(observacoes);
-        System.out.println("Histórico de Consultas:");
-        for (String consulta : historicoConsultas) {
-            System.out.println("- " + consulta);
-        }
+        "ID do Prontuário: " + id +
+                "\nData e hora do atendimento: " + agoraFormatado +
+                "\nMédico: " + medico.getNome() + " (CRMV - " + medico.getCrmv() + ")" +
+                "\nTutor: " + tutor.getNome() +
+                "\nNome do pet: " + pet.getNome() + " (" + pet.getEspecie() + ")" +
+                "\nRaça" + pet.getRaca() +
+                "\nIdade: " + pet.getIdade() + "  |  " + "Peso: " + pet.getPeso() +
+                "\nObservações: " + observacoes +
+                "\nMedicamentos: " + medicamento;
+
+        // for (String consulta : historicoConsultas) {
+        // ("- " + consulta);
     }
 
     public int getId() {
         return id;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
     }
 
     public List<String> getHistoricoConsultas() {
@@ -63,5 +67,53 @@ public class Prontuario {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public static int getUltimaId() {
+        return ultimaId;
+    }
+
+    public static void setUltimaId(int ultimaId) {
+        Prontuario.ultimaId = ultimaId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public void setHistoricoConsultas(List<String> historicoConsultas) {
+        this.historicoConsultas = historicoConsultas;
+    }
+
+    public LocalDateTime getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public String getMedicamento() {
+        return medicamento;
+    }
+
+    public void setMedicamento(String medicamento) {
+        this.medicamento = medicamento;
     }
 }

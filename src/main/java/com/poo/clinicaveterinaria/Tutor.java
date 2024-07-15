@@ -8,10 +8,12 @@ import java.util.Scanner;
 public class Tutor extends Pessoa {
     private static int ultimaId = 0;
     private int id;
+    private Pet pet;
 
-    public Tutor(String nome, String telefone, String cpf, String login, String senha) {
+    public Tutor(String nome, String telefone, String cpf, String login, String senha, Pet pet) {
         super(nome, telefone, cpf, login, senha);
         this.id = ++ultimaId;
+        this.pet = pet;
         Dados.Tutores.add(this);
     }
 
@@ -19,21 +21,29 @@ public class Tutor extends Pessoa {
         return id;
     }
 
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     public void verProntuario(Pet pet) {
         List<Prontuario> prontuarios = Dados.Prontuarios;
         System.out.println("----- Prontuários dos Pets -----");
-        for (Prontuario prontuario : prontuarios) {
-            if (prontuario.getPet().equals(pet) && prontuario.getPet().getTutor().equals(this)) {
-                prontuario.exibirProntuario();
-                return;
-            }
-        }
+        // for (Prontuario prontuario : prontuarios) {
+        //     if (prontuario.getPet().equals(pet) && prontuario.getPet().getTutor().equals(this)) {
+                // prontuario.exibirProntuario();
+            //     return;
+            // }
+        //}
         
         System.out.println("Prontuário não encontrado para o pet " + pet.getNome());
     }
 
-    public void agendarConsulta(LocalDateTime dataHora, Medico medico, String animal, String motivo, String observacoes) {
-        Consulta consulta = new Consulta (dataHora, medico, animal, motivo, observacoes);
+    public void agendarConsulta(LocalDateTime dataHora, Medico medico, String nome, String animal, String motivo, String observacoes) {
+        Consulta consulta = new Consulta (dataHora, medico, this, pet, motivo, observacoes);
         Dados.Consultas.add(consulta);
         System.out.println("Consulta agendada com sucesso para o animal: " + animal);
     }
@@ -89,7 +99,7 @@ public class Tutor extends Pessoa {
         System.out.println("\nDeseja adicionar este pet a(o) tutor(a) " + this.getNome() + "? (s/n)");
         confirma = scString.nextLine().charAt(0);
         if (confirma == 's' || confirma == 'S') {
-            Pet pet = new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado, this);
+            Pet pet = new Pet(nomeDigitado, especieDigitada, racaDigitada, idadeDigitada, pesoDigitado);
             System.out.println("Pet adicionado com sucesso.");
         } else {
             System.out.println("Cancelado.");
